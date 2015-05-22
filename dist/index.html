@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+      <title>Proj5</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+      <script src="bower_components/jquery/dist/jquery.min.js"></script>
+      <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+      <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+      <link rel="stylesheet" href="css/style.min.css">
+      <script src = "https://maps.googleapis.com/maps/api/js"></script>
+   </head>
+   <body>
+      <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+         <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#example-navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Bazinga</a>
+         </div>
+         <div class="collapse navbar-collapse" id="example-navbar-collapse">
+            <ul class="nav navbar-nav">
+               <li>
+                  <form class="navbar-form navbar-left search-form" role="search" data-bind="submit: filterList">
+                     <div class="form-group">
+                        <input type="text" class="form-control" data-bind="value: filterWords" placeholder="What are you looking for?">
+                     </div>
+                     <button type="submit" class="btn btn-default">Submit</button>
+                  </form>
+               </li>
+               <li><button type = "button" data-bind="click: clearFilter" class="btn btn-default navbar-btn">Clear</button></li>
+               <li><button type = "button" data-bind="click: moveCenter" class="btn btn-default navbar-btn">Center Map</button></li>
+            </ul>
+         </div>
+      </nav>
+      <div id="map-canvas"></div>
+      <div id="points" data-bind="foreach: points"></div>
+      <div class="container-fluid" id = "main">
+         <div class = "row">
+            <div class="col-xs-4">
+               <div id ="flickr-picture-row1"></div>
+               <div id ="flickr-picture-row2"></div>
+            </div>
+            <div class="col-xs-8 right">
+               <ul id="places-list" data-bind= "foreach:placesList" class = "list-view-ul">
+                  <li>
+                     <img data-bind = "attr:{src: picUrl}, visible:shouldShowPlacePicture" alt = "Restaurant Picture" class = "list-view-img">
+                     <h3 data-bind = "text: name, visible:shouldShowPlace,click:$parent.displayBoth" class = "list-view-h3"></h3>
+                     <p data-bind = "text: uiDescription, visible:shouldShowDescription,click:$parent.displayBoth" class = "list-view-p"></p>
+                     <p data-bind = "text: telephoneAndMoney, visible:shouldShowTelephoneAndMoney,click:$parent.displayBoth" class = "list-view-p"></p>
+                     <p data-bind = "text: websiteAndRating, visible:shouldShowWebsiteAndRating,click:$parent.displayBoth" class = "list-view-p"></p>
+                     <p data-bind = "text: uiAddress, visible:shouldShowUIAddress,click:$parent.displayBoth" class = "list-view-p"></p>
+                  </li>
+               </ul>
+            </div>
+         </div>
+         <script src="bower_components/knockout/dist/knockout.js"></script>
+         <script src="js/app.min.js"></script>
+      </div>
+   </body>
+</html>

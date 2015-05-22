@@ -1,16 +1,39 @@
-Project 5
+Documentation for Project 5
+---------------------------
 
+Contact
+-------
+Email:kagbulos1@gmail.com
 
-*note: Even though I wanted to minify the code to get an exceeds expectations for app architecture, I chose to leave it unminified so the grader could read my code/comments to understand what I did
+Date
+----
+5/21/15
 
-Description: My favorite restaurants marked on a google map. Additionally, there is a list of them on the right hand side. At the top is a search bar to help you find a desired location.
+Description
+-----------
+My favorite restaurants marked on a google map. There is also a list of them on the right hand side. At the top is a search bar to help you find a desired location. Click on the markers to show a picture of the restaurant. Click on a restaurant in the list to display pictures taken from flickr. Click clear to undo everything. Click center map to reorient map.
 
-Api used: Google maps, google streetview, flickr
+Api used
+--------
+Google maps, google streetview, flickr
 
-Features: A search bar that when used filters both the list on the right and markers on the map. Clicking a marker or restaurant in the list will generate a collage of flickr images that replaces the map.
-To get rid of the collage click the clear button. In the list, there is a personal description of the place and a picture of the restuarant via google streetview.
+Installion
+----------
+Click on dist/index.html
+The src folder refers to everything that is minified and production quality
+The dist folder refers to the original and can be read to easily see my comments/logic
 
-How to use: Click on any item in the list or marker on the map to display pictures from flickr. Use the search bar to filter markers on the map and list. Clicking clear resets the search, clears
-the flickr collage on screen (if something was clicked), and resets all the markers and items in the list. In the event that there are problems (i.e. internet goes down) there is error handling
-and a message will pop up alerting the user there is a problem.
+Changes I've made since last submission
+---------------------------------------
+*I read every comment in both the code review and project feedback. As a result, I have done my best to incorporate every suggestion into my project and the ones that weren't, I've done testing with them and gained a familiarity such that they will show up in future projects I do (i.e. gulp and grunt).
+
+1) added ratings, address, telephone, for each restaurant
+2) added info windows with pictures for when a user clicks on a marker
+3) added a center map button
+4) made the app more responsive by incorporating a navbar which is collapsable as well as making the map itself responsive
+5) improved comment quality by using jsdoc (located within the documentation folder) *couldn't provide comments for functions that started with self i.e. self.filterList()
+6) modified my mvvm structure to hopefully follow the mvvm pattern better
+7) minified version of code (found in dst folder)
+8) modified my readme based on the link provided
+9) added error checking to flickr and google streetview api calls via error option in ajax calls
 
