@@ -23,7 +23,18 @@ Click on dist/index.html
 The src folder refers to everything that is minified and production quality
 The dist folder refers to the original and can be read to easily see my comments/logic
 
-Changes I've made since last submission
+Changes I've made since second submission
+-----------------------------------------
+1) modified style css to better conform to the nanodegree style guide
+2) removed [] in ko.observable array
+3) saved self.placesList().length (line 309) into a variable to improve performance
+4) added offline.js
+5) when the navbar is in toggle mode, clicking clear map, clear pics OR center map closes the navbar
+6) only one info window opens at a time
+7) when the user clicks/touches a location, the map centers on that location
+8) instead of using the clear button to close the picture panel, added clear pics button which will close the picture panel
+
+Changes I've made since first submission
 ---------------------------------------
 *I read every comment in both the code review and project feedback. As a result, I have done my best to incorporate every suggestion into my project and the ones that weren't, I've done testing with them and gained a familiarity such that they will show up in future projects I do (i.e. gulp and grunt).
 

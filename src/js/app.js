@@ -4,6 +4,16 @@
 var map;
 var markers=[];
 var infowindowarr = [];
+var infowindow;
+try
+{
+    infowindow = new google.maps.InfoWindow();
+}
+catch (error)
+{
+    alert("Unfortunately, the information on this page cannot be loaded z");
+    console.log("Something went wrong: ", error);
+}
 //array that holds all the data to be used in the project
 var initialPlaces = [
     {
@@ -288,13 +298,13 @@ var ViewModel = function()
     //word that the user will type in that will determine which items stay in the list or not
 	self.filterWords = ko.observable();
 	//this section populates our list with all the place objects containing all their attributes
-	self.placesList = ko.observableArray([]);
+	self.placesList = ko.observableArray();
     /**
     * Array of Point objects that will correspond to the markers on our map
     * @public
     * @type ko.observablearray
     */
-    var points = new ko.observableArray([]);
+    var points = new ko.observableArray();
     //add a new place item in placelist  & add point object for every place inside initialplaces
 	initialPlaces.forEach(function(placeItem)
     {
@@ -305,8 +315,9 @@ var ViewModel = function()
 	self.filterList = function() {
 		//go through each item, see if it matches the filter word, and if it doesnt, get rid of it!
 		//we have toLowerCase because we want to make it case insensitive
+        var placesListLength = self.placesList().length;
         if (self.filterWords() !== undefined) {
-    		for (i = 0; i < self.placesList().length ; i++)
+    		for (i = 0; i < placesListLength ; i++)
         	{
         	 	if (!(self.placesList()[i].name().toLowerCase().search(self.filterWords().toLowerCase()) > -1))
         	 	{
@@ -321,6 +332,12 @@ var ViewModel = function()
         	 	}
         	}
         }
+        //clear the toggle when you click search
+        $(".searchform").click(function(){
+            if($('.navbar-toggle').css('display') !='none'){
+                $(".navbar-toggle").trigger( "click" );
+            }
+        });
     };
     //responsible for functionality when the user clicks clear
     self.clearFilter = function()
@@ -342,6 +359,18 @@ var ViewModel = function()
         {
             markers[i].setMap(map);
         }
+        infowindow.close();
+
+        //closing the toggle menu when you click clear
+        $(".clear").click(function(){
+            if($('.navbar-toggle').css('display') !='none'){
+                $(".navbar-toggle").trigger( "click" );
+            }
+        });
+    };
+    //clear the picture panel
+    self.clearPics = function()
+    {
         //clear the pictures that were generated from flickr
         var $flickrPicRow1Elem = $('#flickr-picture-row1');
         var $flickrPicRow2Elem = $('#flickr-picture-row2');
@@ -349,11 +378,13 @@ var ViewModel = function()
         $flickrPicRow2Elem.empty();
         //show the map again
         self.showMap();
-        //since we are clearing our filters, we make sure that we also clear all the info windows that are open
-        for (i = 0; i < infowindowarr.length; i++)
-        {
-            infowindowarr[i].close();
-        }
+
+        //closing the toggle menu when you click clearpics
+        $(".clear").click(function(){
+            if($('.navbar-toggle').css('display') !='none'){
+                $(".navbar-toggle").trigger( "click" );
+            }
+        });
     };
     //resposible for displaying the pictures using the flickr api
     self.displayFlickr = function(clickedRestaurant)
@@ -414,18 +445,25 @@ var ViewModel = function()
     //responsible for getting rid of the map
     self.clearMap = function()
     {
-        $('#map-canvas').hide();
+        $('.map-canvas').hide();
     };
     //responsible for showing the map
     self.showMap = function()
     {
-        $('#map-canvas').show();
+        $('.map-canvas').show();
     };
     //center the map
     self.mapCenter = function (map)
     {
         var center = new google.maps.LatLng(37.871865, -122.258628);
         map.panTo(center);
+
+        //closing the toggle menu when you click center map
+        $(".center-map").click(function(){
+            if($('.navbar-toggle').css('display') !='none'){
+                $(".navbar-toggle").trigger( "click" );
+            }
+        });
     };
     //ui call bound to mapcenter
     self.moveCenter = function()
@@ -436,7 +474,7 @@ var ViewModel = function()
 
 //error checking for making the map
 try{
-    map = new google.maps.Map(document.getElementById('map-canvas'), {
+    map = new google.maps.Map(document.getElementsByClassName('map-canvas')[0], {
         center: new google.maps.LatLng(37.871865, -122.258628),
         zoom: 14,
         mapTypeId: google.maps.MapTypeId.ROADMAP
@@ -444,7 +482,7 @@ try{
 }
 catch (error)
 {
-    alert("Unfortunately, the information on this page cannot be loaded");
+    alert("Unfortunately, the information on this page cannot be loaded z");
     console.log("Something went wrong: ", error);
 }
 /**
@@ -469,26 +507,32 @@ function Point(name, lat, long, address) {
             animation: google.maps.Animation.DROP,
             title: name
         });
+        //console.log(address); // at this point thye are different addresses
+
+        //var that = this;
+        var picSrc = 'http://maps.googleapis.com/maps/api/streetview?size=600x400&location=' + this.address + ' ';
 
         $.ajax({
-            url: 'http://maps.googleapis.com/maps/api/streetview?size=600x400&location=' + address + ' ',
+            url: picSrc,
             success: function(){
-                var picSrc = 'http://maps.googleapis.com/maps/api/streetview?size=600x400&location=' + address + ' ';
+                //console.log('picSrc: ' + picSrc);
                 var contentString = '<img src="' + picSrc + ' "' + 'alt="no picture found">';
-                var infowindow = new google.maps.InfoWindow({
-                    content: contentString
-                });
 
-                google.maps.event.addListener(marker, 'click', (function(markers,infowindows) {
+                //infowindow.setContent(contentString);
+                //console.log(infowindow);
+                //console.log(infowindow.content);
+                //console.log(this.center1)
+                google.maps.event.addListener(marker, 'click', (function(markers,contentStrings) {
                     return function()
                     {
-                        infowindows.open(map,markers);
-                        //console.log(infowindows);
+                        infowindow.setContent(contentStrings);
+                        infowindow.open(map,markers);
+                        map.setCenter(markers.getPosition());
                     };
-                })(marker, infowindow));
+                })(marker, contentString));
 
                 markers.push(marker);
-                infowindowarr.push(infowindow);
+                //infowindowarr.push(infowindow);
             },
             error: function(xhr, errorType, exception)
             {
@@ -498,7 +542,6 @@ function Point(name, lat, long, address) {
                 else{
                     alert(errorType);
                 }
-
             }
         });
     }

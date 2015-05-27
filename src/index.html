@@ -9,6 +9,9 @@
       <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
       <link rel="stylesheet" href="css/style.css">
       <script src = "https://maps.googleapis.com/maps/api/js"></script>
+      <script src="js/offline.min.js"></script>
+      <link rel="stylesheet" href="css/offline-theme-default.css">
+      <link rel="stylesheet" href="css/offline-language-english.css">
    </head>
    <body>
       <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -28,17 +31,18 @@
                      <div class="form-group">
                         <input type="text" class="form-control" data-bind="value: filterWords" placeholder="What are you looking for?">
                      </div>
-                     <button type="submit" class="btn btn-default">Submit</button>
+                     <button type="submit" class="btn btn-default searchform">Submit</button>
                   </form>
                </li>
-               <li><button type = "button" data-bind="click: clearFilter" class="btn btn-default navbar-btn">Clear</button></li>
-               <li><button type = "button" data-bind="click: moveCenter" class="btn btn-default navbar-btn">Center Map</button></li>
+               <li><button type = "button" data-bind="click: clearFilter" class="btn btn-default navbar-btn clear">Clear Map</button></li>
+               <li><button type = "button" data-bind="click: clearPics" class="btn btn-default navbar-btn clear">Clear Pics</button></li>
+               <li><button type = "button" data-bind="click: moveCenter" class="btn btn-default navbar-btn center-map">Center Map</button></li>
             </ul>
          </div>
       </nav>
-      <div id="map-canvas"></div>
+      <div class="map-canvas"></div>
       <div id="points" data-bind="foreach: points"></div>
-      <div class="container-fluid" id = "main">
+      <div class="container-fluid main">
          <div class = "row">
             <div class="col-xs-4">
                <div id ="flickr-picture-row1"></div>

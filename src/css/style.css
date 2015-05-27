@@ -1,9 +1,10 @@
-html,body{
-  height:100%;
+html,
+body {
+  height: 100%;
 }
 
-body{
-  padding-top:50px; /*padding for navbar*/
+body {
+  padding-top: 50px; /*padding for navbar*/
 }
 
 li {
@@ -18,7 +19,7 @@ li:hover {
 
 h1 {
   text-decoration: underline;
-  text-align:center
+  text-align: center
 }
 
 .flickr-img {
@@ -31,7 +32,7 @@ h1 {
 }
 
 .right {
-  height:100%;
+  height: 100%;
 }
 
 .list-view-ul {
@@ -58,15 +59,15 @@ h1 {
 }
 
 .navbar-default .navbar-header .icon-bar {
-  background-color:#FFFFFF;
+  background-color: #fff;
 }
 
 .navbar-default {
-  background-color: #00CCFF;
+  background-color: #0cf;
 }
 
 .navbar-default .navbar-brand{
-  color:#FFFFFF;
+  color: #fff;
 }
 
 .navbar-default .form-control:focus {
@@ -75,21 +76,21 @@ h1 {
   box-shadow: inset 0 0 0;
 }
 
-#map-canvas {
-  width:33.3333%;
-  height:100%;
-  position:absolute;
-  left:16px;
-  top:50px;
-  bottom:0;
-  overflow:hidden;
+.map-canvas {
+  width: 33.3333%;
+  height: 100%;
+  position: absolute;
+  left: 16px;
+  top: 50px;
+  bottom: 0;
+  overflow: hidden;
 }
 
-#main, #main>.row {
-  height:100%;
+.main,
+.main>.row {
+  height: 100%;
 }
 
-#main>.row {
-  overflow-y:scroll;
+.main>.row {
+  overflow-y: scroll;
 }
-
