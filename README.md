@@ -23,6 +23,11 @@ Click on dist/index.html
 The src folder refers to everything that is minified and production quality
 The dist folder refers to the original and can be read to easily see my comments/logic
 
+Changes I've made since third submission
+----------------------------------------
+1) added margin-top for list view so not touching the navbar at the top
+2) after the clear pics button is clicked, the infowindow for the restaurant that was picked is opened
+
 Changes I've made since second submission
 -----------------------------------------
 1) modified style css to better conform to the nanodegree style guide

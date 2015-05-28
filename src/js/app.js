@@ -5,6 +5,7 @@ var map;
 var markers=[];
 var infowindowarr = [];
 var infowindow;
+var lastClickedRestaurant;
 try
 {
     infowindow = new google.maps.InfoWindow();
@@ -385,6 +386,8 @@ var ViewModel = function()
                 $(".navbar-toggle").trigger( "click" );
             }
         });
+
+        openAfterClear();
     };
     //resposible for displaying the pictures using the flickr api
     self.displayFlickr = function(clickedRestaurant)
@@ -434,6 +437,8 @@ var ViewModel = function()
 
             }
         });
+
+        lastClickedRestaurant = clickedRestaurant;
     };
     //since a click event can't have 2 events happen, we put them into one function that calls both of them
     self.displayBoth = function(clickedRestaurant)
@@ -507,6 +512,7 @@ function Point(name, lat, long, address) {
             animation: google.maps.Animation.DROP,
             title: name
         });
+        //marker.setIcon("http://maps.google.com/mapfiles/ms/icons/blue-dot.png");
         //console.log(address); // at this point thye are different addresses
 
         //var that = this;
@@ -551,5 +557,14 @@ function Point(name, lat, long, address) {
     }
 }
 
+function openAfterClear(){
+    markers.forEach(function(mark){
+        if(mark.getTitle() === lastClickedRestaurant.name()){
+            var picSrc = 'http://maps.googleapis.com/maps/api/streetview?size=600x400&location=' + lastClickedRestaurant.address() + ' ';
+            infowindow.setContent('<img src="' + picSrc + ' "' + 'alt="no picture found">');
+            infowindow.open(map,mark);
+        }
+    });
+}
 //apply data-bindings we made
 ko.applyBindings(new ViewModel());
